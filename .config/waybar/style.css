@@ -1,0 +1,99 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "RobotoMono Nerd Font";
+    font-size: 15px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: white;
+}
+
+#window {
+    font-weight: 500;
+    font-family: "RobotoMono";
+}
+
+#workspaces {
+    padding: 0 0px;
+}
+
+
+#workspaces button {
+    padding: 0 10px;
+    background: transparent;
+    color: white;
+    border-top: 2px solid transparent;
+}
+
+#workspaces button.active {
+    color: #8ab4f8;
+    border-bottom: 2px solid #8ab4f8;
+}
+
+#mode {
+    background: #64727D;
+    border-bottom: 3px solid white;
+}
+
+#clock, #battery, #cpu, #memory, #network, #pulseaudio, #custom-spotify, #tray, #mode{
+    padding: 0 5px;
+    margin: 0 5px;
+}
+
+#clock {
+    font-weight: bold;
+}
+
+#battery {
+}
+
+#battery icon {
+    color: red;
+}
+
+#battery.charging {
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: black;
+    }
+}
+
+#cpu {
+}
+
+#memory {
+}
+
+#network {
+}
+
+#network.disconnected {
+    background: #f53c3c;
+}
+
+#pulseaudio {
+  font-weight: 500;
+}
+
+#pulseaudio.muted {
+}
+
+#tray {
+}
+
+#custom-power{
+  padding: 0 5px
+}
+
+#custom-hyprsunset{
+}
+
+#custom-notification{
+  padding: 0 5px
+}
