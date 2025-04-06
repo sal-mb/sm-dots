@@ -4,7 +4,10 @@ end
 
 set fish_greeting
 zoxide init fish | source
-set -gx EDITOR hx
+
+set -gx EDITOR helix
+set -gx TERM wezterm
+
 function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"
@@ -13,3 +16,5 @@ function y
     end
     rm -f -- "$tmp"
 end
+
+fish_vi_key_bindings

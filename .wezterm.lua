@@ -18,10 +18,10 @@ config.hide_tab_bar_if_only_one_tab = true
 config.window_close_confirmation = 'NeverPrompt'
 
 config.window_padding = {
-  left = 0,
-  right = 0,
-  top = 1,
-  bottom = 1,
+  left = 5,
+  right = 5,
+  top = 5,
+  bottom = 5,
 }
 
 config.keys = {

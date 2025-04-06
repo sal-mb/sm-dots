@@ -1,0 +1,47 @@
+let {
+    $workspaces = {
+        type = "workspaces"
+        all_monitors = false
+    }
+
+    $tray = { type = "tray" }
+
+    $clock = { type = "clock" }
+
+    $volume = {
+        type = "volume"
+        format = "<span color='#B2CCD6'>{icon}</span> {percentage}%"
+        max_volume = 100
+        icons.volume_high = "󰕾"
+        icons.volume_medium = "󰖀"
+        icons.volume_low = "󰕿"
+        icons.muted = "󰝟"
+    }
+
+    // -- begin custom --
+
+    $battery = {
+        type = "script"
+        cmd = "~/.config/ironbar/battery_widget"
+        mode = "poll"
+        interval = 5000
+    }
+    $network = {
+        type = "script"
+        cmd = "~/.config/ironbar/network_widget"
+        mode = "poll"
+        interval = 5000
+    }
+
+    $left = [ $workspaces ]
+    $right = [ $volume $network $battery $clock ]
+}
+in {
+    anchor_to_edges = true
+    position = "bottom"
+    height = 10
+    icon_theme = "Papirus-dark"
+
+    start = $left
+    end = $right
+}

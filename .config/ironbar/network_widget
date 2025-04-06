@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Get the name of the currently connected Wi-Fi network
+wifi_name=$(iwgetid -r)  # or use `nmcli -t -f ACTIVE,SSID dev wifi` if nmcli is available
+
+# Check if we're connected to a network
+if [ -n "$wifi_name" ]; then
+    # Define the Wi-Fi icon and color
+    wifi_icon=""
+    wifi_icon_colored="<span foreground='#82AAFF'>$wifi_icon</span>"
+
+    # Print the Wi-Fi icon and the name of the network
+    echo -n "$wifi_icon_colored $wifi_name"
+else
+    # If not connected, print nothing
+    echo -n ""
+fi
+
