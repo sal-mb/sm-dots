@@ -1,0 +1,33 @@
+[main]
+font = monospace:size=12
+icons-enabled = false
+prompt = ""
+dpi-aware = no
+use-bold = false
+inner-pad = 5
+vertical-pad = 10
+horizontal-pad = 10
+list-executables-in-path = yes
+
+[dmenu]
+exit-immediately-if-empty = true
+
+[border]
+width = 0
+radius = 0
+
+[colors]
+input = 8f93a2ff
+background = 303030FF
+text = e3e8ffFF
+match = aaaaaaff
+selection = 4a4a4aFF
+selection-text = eeffffFF
+selection-match = aaaaaaFF
+
+[key-bindings]
+delete-line-forward = none
+next = Down Control+j
+prev = Up Control+k
+next-page = Shift+j
+prev-page = Shift+k

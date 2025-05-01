@@ -33,8 +33,9 @@ let {
         interval = 5000
     }
 
-    $left = [ $workspaces ]
-    $right = [ $volume $network $battery $clock ]
+    $left = [ $clock $tray]
+    $middle = [ $workspaces ]
+    $right = [ $volume $network $battery  ]
 }
 in {
     anchor_to_edges = true
@@ -43,5 +44,6 @@ in {
     icon_theme = "Papirus-dark"
 
     start = $left
+    center = $middle
     end = $right
 }

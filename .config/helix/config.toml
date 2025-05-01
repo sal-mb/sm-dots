@@ -1,1 +1,6 @@
 theme = "material_darker"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+askSystem() {
+	choice=$(
+		printf "Lock\nLogout\nReboot\nShutdown" | fuzzel -l 5 -w 10 -di
+	)
+
+	case $choice in
+	Lock) lock ;;
+	Logout) hyprctl dispatch exit ;;
+	Reboot) reboot ;;
+	Shutdown) shutdown now;;
+	esac
+}
+
+([ "$1" = "lock" ] && lock) || askSystem

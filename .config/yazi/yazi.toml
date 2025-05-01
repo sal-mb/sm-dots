@@ -1,13 +1,13 @@
 
 [opener]
 play = [
-	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+	{ run = 'vlc "$@"', orphan = true, for = "unix" },
 ]
 edit = [
 	{ run = 'helix "$@"', block = true, for = "unix" },
 ]
 open = [
-	{ run = 'xdg-open "$@"', desc = "Open" },
+	{ run = 'xdg-open "$@"', orphan = true, desc = "Open" },
 ]
 
 
@@ -43,3 +43,6 @@ prepend_rules = [
 append_rules = [
 	{ name = "*", use = "edit" },
 ]
+
+[manager]
+linemode = "size"

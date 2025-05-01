@@ -33,7 +33,7 @@ if [ $mean_capacity -ge 80 ]; then
     battery_icon=""
 elif [ $mean_capacity -ge 60 ]; then
     battery_icon=""
-elif [ $mean_capacity -ge 25 ]; then
+elif [ $mean_capacity -ge 30 ]; then
     battery_icon=""
 elif [ $mean_capacity -ge 10 ]; then
     battery_icon=""

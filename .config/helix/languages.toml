@@ -1,0 +1,3 @@
+[[language]]
+name = "bash"
+formatter = { command = "bash", args = ["-c", "shfmt -i 4 -sr -bn -ci -ci -dp -s -mf"] }
