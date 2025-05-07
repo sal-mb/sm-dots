@@ -12,17 +12,12 @@
  fi
 
  echo "Installing network tools..."
-read -p "Do you want to install iwd instead of networkmanager? (not recommended) [y/N]: " install_iwd
-if [[ "$install_iwd" == "y" || "$install_iwd" == "Y" ]]; then
-  paru -S --nocofirm iwd impala wireless_tools
-  sudo systemctl disable NetworkManager.service
-  sudo systemctl enable iwd.service
-  sudo mkdir /etc/iwd
-  ln -s ~/sm-dots/main.conf /etc/iwd
-else
- paru -S --noconfirm networkmanager network-manager-applet wireless_tools
- sudo systemctl enable NetworkManager.service
+read -p "Do you want to install wireless packages? [y/N]: " install_wireless
+if [[ "$install_wireless" == "y" || "$install_wireless" == "Y" ]]; then
+ paru -S --noconfirm wireless_tools
 fi
+ paru -S --noconfirm wireless_tools
+ sudo systemctl enable NetworkManager.service
 
  # Install zoxide, helix, and wezterm using paru
  echo "Installing terminal tools..."
@@ -38,7 +33,7 @@ fi
  paru -S --noconfirm ttf-font-awesome ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols
 
  echo "Installing gtk themes..."
- paru -S --noconfirm nwg-look papirus-icon-theme materia-gtk-theme
+ paru -S --noconfirm gradience nwg-look papirus-icon-theme materia-gtk-theme
 
  echo "Installing qt themes..."
  paru -S --noconfirm kvantum-qt6-git kvantum-theme-materia qt5-wayland qt6-wayland
@@ -69,11 +64,26 @@ rm -rf ~/.config/yazi
 ln -snf ~/sm-dots/.config/yazi ~/.config/yazi
 rm -f ~/.wezterm.lua
 ln -s ~/sm-dots/.wezterm.lua ~/.wezterm.lua
+rm -f ~/.gitconfig
+ln -s ~/sm-dots/.gitconfig ~/.gitconfig
 rm -rf ~/.config/ironbar
 ln -snf ~/sm-dots/.config/ironbar ~/.config/ironbar
 rm -rf ~/.config/dunst 
 ln -snf ~/sm-dots/.config/dunst ~/.config/dunst
 rm -rf ~/.config/fuzzel 
 ln -snf ~/sm-dots/.config/fuzzel ~/.config/fuzzel
+rm -rf ~/.config/hypr
+ln -snf ~/sm-dots/.config/hypr ~/.config/hypr
+rm -rf ~/.config/Kvantum
+ln -snf ~/sm-dots/.config/Kvantum ~/.config/Kvantum
+rm -rf ~/.config/gtk-3.0
+ln -snf ~/sm-dots/.config/gtk-3.0 ~/.config/gtk-3.0
+rm -rf ~/.config/gtk-4.0
+ln -snf ~/sm-dots/.config/gtk-4.0 ~/.config/gtk-4.0
+rm -f ~/.config/mimeapps.list
+ln -s ~/sm-dots/.config/mimeapps.list ~/.config/mimeapps.list
 sudo rm -rf /etc/greetd/config.toml
 sudo ln -s ~/sm-dots/config.toml /etc/greetd/
+
+mkdir ~/Pictures/wallpapers
+cp ~/sm-dots/wp.png ~/Pictures/wallpapers/

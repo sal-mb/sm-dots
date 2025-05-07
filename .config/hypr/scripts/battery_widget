@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Get battery capacities
+battery_0_capacity=""
+battery_1_capacity=""
+charging_status_0=""
+charging_status_1=""
+
+battery_count=0
+if [ -d "/sys/class/power_supply/BAT0" ]; then
+    battery_0_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+    charging_status_0=$(cat /sys/class/power_supply/BAT0/status)
+    battery_count=$((battery_count + 1))
+fi
+
+if [ -d "/sys/class/power_supply/BAT1" ]; then
+    battery_1_capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+    charging_status_1=$(cat /sys/class/power_supply/BAT1/status)
+    battery_count=$((battery_count + 1))
+fi
+
+# Calculate the mean capacity (assumes both batteries exist, otherwise defaults to individual battery capacities)
+mean_capacity=0
+if [ $battery_count -eq 1 ]; then
+    mean_capacity=$battery_0_capacity
+elif [ $battery_count -eq 2 ]; then
+    mean_capacity=$(( (battery_0_capacity + battery_1_capacity) / 2 ))
+fi
+
+battery_icon=""
+
+if [ $mean_capacity -ge 80 ]; then
+    battery_icon=""
+elif [ $mean_capacity -ge 60 ]; then
+    battery_icon=""
+elif [ $mean_capacity -ge 30 ]; then
+    battery_icon=""
+elif [ $mean_capacity -ge 10 ]; then
+    battery_icon=""
+else
+    battery_icon=""
+fi
+
+# GTK Pango Markup to color the icon
+if [[ "$charging_status_0" == "Charging" ]] || [[ "$charging_status_1" == "Charging" ]]; then
+    echo -n "$battery_icon  $mean_capacity%"
+else
+    if [ $mean_capacity -ge 0 ]; then
+        echo -n "$battery_icon $mean_capacity%"
+    fi
+fi

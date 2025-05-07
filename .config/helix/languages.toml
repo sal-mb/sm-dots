@@ -1,3 +1,13 @@
 [[language]]
 name = "bash"
 formatter = { command = "bash", args = ["-c", "shfmt -i 4 -sr -bn -ci -ci -dp -s -mf"] }
+
+[[language]]
+name = "cpp"
+scope = "source.cpp"
+language-servers = [ "clangd" ]
+formatter = { command = 'clang-format', args = ['--style=file'] }
+auto-format = true
+indent = { tab-width = 4, unit = "    " }
+ 
+
