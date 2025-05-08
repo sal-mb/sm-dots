@@ -26,7 +26,7 @@ fi
  paru -S --noconfirm zoxide helix wezterm yazi lsd fish fisher tealdeer bear fd 
 
  echo "Installing hyprland packages..."
- paru -S --noconfirm hyprland hyprpaper hyprpolkitagent ironbar-git greetd-tuigreet dunst hyprlock hypridle hyprshade-git wlsunset zen-browser
+ paru -S --noconfirm hyprland hyprpaper hyprpolkitagent ironbar-git greetd-tuigreet dunst hyprlock hypridle hyprshade-git wlsunset zen-browser fuzzel
 
  echo "Installing screenshot tools..."
  paru -S --noconfirm grim slurp swappy
