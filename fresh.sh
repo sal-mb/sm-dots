@@ -16,15 +16,17 @@ read -p "Do you want to install wireless packages? [y/N]: " install_wireless
 if [[ "$install_wireless" == "y" || "$install_wireless" == "Y" ]]; then
  paru -S --noconfirm wireless_tools
 fi
- paru -S --noconfirm wireless_tools
+ paru -S --noconfirm networkmanager
  sudo systemctl enable NetworkManager.service
 
- # Install zoxide, helix, and wezterm using paru
+ echo "Installing utils..."
+ paru -S --noconfirm zip pipewire wireplumber brightnessctl libnotify gnome-disk-utility gvfs ntfs-3g
+
  echo "Installing terminal tools..."
- paru -S --noconfirm zoxide helix wezterm yazi lsd fish fisher tealdeer bear fd zip
+ paru -S --noconfirm zoxide helix wezterm yazi lsd fish fisher tealdeer bear fd 
 
  echo "Installing hyprland packages..."
- paru -S --noconfirm hyprland hyprpolkitagent ironbar-git pipewire wireplumber brightnessctl greetd-tuigreet dunst libnotify hyprlock hypridle hyprshade-git wlsunset zen-browser
+ paru -S --noconfirm hyprland hyprpaper hyprpolkitagent ironbar-git greetd-tuigreet dunst hyprlock hypridle hyprshade-git wlsunset zen-browser
 
  echo "Installing screenshot tools..."
  paru -S --noconfirm grim slurp swappy
@@ -80,6 +82,10 @@ rm -rf ~/.config/gtk-3.0
 ln -snf ~/sm-dots/.config/gtk-3.0 ~/.config/gtk-3.0
 rm -rf ~/.config/gtk-4.0
 ln -snf ~/sm-dots/.config/gtk-4.0 ~/.config/gtk-4.0
+rm -rf ~/.config/qt5ct
+ln -snf ~/sm-dots/.config/qt5ct ~/.config/qt5ct
+rm -rf ~/.config/qt6ct
+ln -snf ~/sm-dots/.config/qt6ct ~/.config/qt6ct
 rm -f ~/.config/mimeapps.list
 ln -s ~/sm-dots/.config/mimeapps.list ~/.config/mimeapps.list
 sudo rm -rf /etc/greetd/config.toml
