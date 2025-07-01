@@ -20,7 +20,7 @@ fi
  sudo systemctl enable NetworkManager.service
 
  echo "Installing utils..."
- paru -S --noconfirm zip pipewire wireplumber brightnessctl libnotify gnome-disk-utility gvfs ntfs-3g
+ paru -S --noconfirm zip pipewire wireplumber brightnessctl libnotify gnome-disk-utility gvfs ntfs-3g 7zip blueman
 
  echo "Installing terminal tools..."
  paru -S --noconfirm zoxide helix wezterm yazi lsd fish fisher tealdeer bear fd 
@@ -35,10 +35,10 @@ fi
  paru -S --noconfirm ttf-font-awesome ttf-jetbrains-mono-nerd ttf-nerd-fonts-symbols
 
  echo "Installing gtk themes..."
- paru -S --noconfirm gradience nwg-look papirus-icon-theme materia-gtk-theme
+ paru -S --noconfirm python-yapsy-git gradience nwg-look papirus-icon-theme materia-gtk-theme adw-gtk-theme
 
  echo "Installing qt themes..."
- paru -S --noconfirm kvantum-qt6-git kvantum-theme-materia qt5-wayland qt6-wayland
+ paru -S --noconfirm kvantum-qt6-git kvantum-theme-materia qt5-wayland qt6-wayland qt5ct qt6ct
 
 # Prompt for laptop power packages installation
 read -p "Do you want to install laptop power packages (tlp and acpi)? [y/N]: " install_laptop_power

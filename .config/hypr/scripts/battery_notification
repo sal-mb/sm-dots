@@ -1,0 +1,49 @@
+#!/bin/bash
+# Get battery capacities
+charging_status_0=""
+charging_status_1=""
+battery_0_capacity=""
+battery_1_capacity=""
+
+notify_levels=(3 5 10 20)
+last_notify=100
+
+while true; do
+
+    battery_count=0
+    if [ -d "/sys/class/power_supply/BAT0" ]; then
+        battery_0_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+        charging_status_0=$(cat /sys/class/power_supply/BAT0/status)
+        battery_count=$((battery_count + 1))
+    fi
+
+    if [ -d "/sys/class/power_supply/BAT1" ]; then
+        battery_1_capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+        charging_status_1=$(cat /sys/class/power_supply/BAT1/status)
+        battery_count=$((battery_count + 1))
+    fi
+
+    # Calculate the mean capacity (assumes both batteries exist, otherwise defaults to individual battery capacities)
+    bat_lvl=0
+    if [ $battery_count -eq 1 ]; then
+        bat_lvl=$battery_0_capacity
+    elif [ $battery_count -eq 2 ]; then
+        bat_lvl=$(( (battery_0_capacity + battery_1_capacity) / 2 ))
+    fi
+
+    if [ $bat_lvl -gt $last_notify ]; then
+            last_notify=$bat_lvl
+    fi
+
+    if [[ "$charging_status_0" != "Charging" ]] && [[ "$charging_status_1" != "Charging" ]]; then
+        for notify_level in ${notify_levels[@]}; do
+            if [ $bat_lvl -le $notify_level ]; then
+                if [ $notify_level -lt $last_notify ]; then
+                    notify-send -u critical "Low Battery" "$bat_lvl% battery remaining."
+                    last_notify=$bat_lvl
+                fi
+            fi
+        done
+    fi
+sleep 60
+done

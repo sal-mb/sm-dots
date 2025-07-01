@@ -44,5 +44,5 @@ append_rules = [
 	{ name = "*", use = "edit" },
 ]
 
-[mgr]
+[manager]
 linemode = "size"
