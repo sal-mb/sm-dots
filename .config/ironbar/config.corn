@@ -18,24 +18,24 @@ let {
         icons.muted = "󰝟"
     }
 
-    // -- begin custom --
-
     $battery = {
         type = "script"
         cmd = "~/.config/ironbar/battery_widget"
         mode = "poll"
         interval = 5000
+        tooltip = "{{~/.config/ironbar/battery_tooltip}}"
     }
     $network = {
         type = "script"
         cmd = "~/.config/ironbar/network_widget"
         mode = "poll"
         interval = 5000
+        tooltip = "{{iwgetid -r}}"
     }
 
     $left = [ $clock $tray]
     $middle = [ $workspaces ]
-    $right = [ $volume $network $battery  ]
+    $right = [ $volume $network $battery ]
 }
 in {
     anchor_to_edges = true

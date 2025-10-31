@@ -228,4 +228,7 @@ scale trough {
 .popup-power-menu #buttons > *:nth-child(1) .power-btn {
     margin-right: 1em;
 }
+#network:hover {
+    color: @color_bg_dark
+}
 

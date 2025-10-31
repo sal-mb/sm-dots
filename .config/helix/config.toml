@@ -8,3 +8,7 @@ cursor-line = "hint"
 insert = "bar"
 normal = "block"
 select = "underline"
+
+[keys.normal]
+A-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+A-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]

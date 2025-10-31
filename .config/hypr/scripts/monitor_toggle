@@ -1,0 +1,18 @@
+#!/bin/bash
+
+CONF="$HOME/.config/hypr/configs/autostart.conf"   # adjust the path if needed
+LINE1="monitor=eDP-1,preferred,auto,1"
+LINE2="monitor=eDP-1,disable"
+
+if grep -Fxq "$LINE1" "$CONF"; then
+    # If LINE1 is found, replace it with LINE2
+    sed -i "s|$LINE1|$LINE2|" "$CONF"
+    echo "Toggled: switched to '$LINE2'"
+elif grep -Fxq "$LINE2" "$CONF"; then
+    # If LINE2 is found, replace it with LINE1
+    sed -i "s|$LINE2|$LINE1|" "$CONF"
+    echo "Toggled: switched to '$LINE1'"
+else
+    echo "No matching line found in $CONF"
+fi
+

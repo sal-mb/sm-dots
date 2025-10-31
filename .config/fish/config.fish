@@ -8,6 +8,11 @@ zoxide init fish | source
 set -gx EDITOR helix
 set -gx TERM wezterm
 
+# GUROBI
+set -gx GUROBI_HOME /opt/gurobi1202/linux64
+set -gx PATH $GUROBI_HOME/bin:$PATH
+set -gx LD_LIBRARY_PATH $GUROBI_HOME/lib:"$LD_LIBRARY_PATH"
+
 function y
     set tmp (mktemp -t "yazi-cwd.XXXXXX")
     yazi $argv --cwd-file="$tmp"

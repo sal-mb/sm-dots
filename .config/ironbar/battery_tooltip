@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Get battery capacities
+battery_0_capacity=""
+
+if [ -d "/sys/class/power_supply/BAT0" ]; then
+    battery_0_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+fi
+
+battery_0_icon=""
+
+if [ $battery_0_capacity -ge 80 ]; then
+    battery_0_icon=""
+elif [ $battery_0_capacity -ge 60 ]; then
+    battery_0_icon=""
+elif [ $battery_0_capacity -ge 30 ]; then
+    battery_0_icon=""
+elif [ $battery_0_capacity -ge 10 ]; then
+    battery_0_icon=""
+else
+    battery_0_icon=""
+fi
+
+echo -n "0: $battery_0_icon $battery_0_capacity%"
+
+battery_1_capacity=""
+if [ -d "/sys/class/power_supply/BAT1" ]; then
+    battery_1_capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+fi
+
+battery_1_icon=""
+
+if [ $battery_1_capacity -ge 80 ]; then
+    battery_1_icon=""
+elif [ $battery_1_capacity -ge 60 ]; then
+    battery_1_icon=""
+elif [ $battery_1_capacity -ge 30 ]; then
+    battery_1_icon=""
+elif [ $battery_1_capacity -ge 10 ]; then
+    battery_1_icon=""
+else
+    battery_1_icon=""
+fi
+
+echo -n " - 1: $battery_1_icon $battery_1_capacity%"
+

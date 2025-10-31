@@ -1,7 +1,15 @@
+
+[language-server.clangd]
+command = "clangd"
+args = ["--clang-tidy"]
+
+# Bash
 [[language]]
 name = "bash"
 formatter = { command = "bash", args = ["-c", "shfmt -i 4 -sr -bn -ci -ci -dp -s -mf"] }
 
+
+# C and C++
 [[language]]
 name = "cpp"
 scope = "source.cpp"
@@ -9,5 +17,22 @@ language-servers = [ "clangd" ]
 formatter = { command = 'clang-format', args = ['--style=file'] }
 auto-format = true
 indent = { tab-width = 4, unit = "    " }
+
+[[language]]
+name = "c"
+scope = "source.c"
+language-servers = ["clangd"]
+formatter = { command = 'clang-format', args = ['--style=file'] }
+auto-format = true
+indent = { tab-width = 4, unit = "    " }
  
 
+# Python
+[language-server.pylsp.config.pylsp]
+plugins.ruff.enabled = true
+plugins.black.enabled = true
+
+[[language]]
+name = "python"
+language-servers = ["pylsp"]
+auto-format = true
