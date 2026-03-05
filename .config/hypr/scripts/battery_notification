@@ -1,42 +1,51 @@
 #!/bin/bash
-# Get battery capacities
-charging_status_0=""
-charging_status_1=""
-battery_0_capacity=""
-battery_1_capacity=""
+# Battery low notification with weighted mean using watt-hours
 
 notify_levels=(3 5 10 20)
 last_notify=100
 
 while true; do
-
     battery_count=0
+    total_energy=0
+    total_full=0
+    charging_status_0=""
+    charging_status_1=""
+
+    # Battery 0
     if [ -d "/sys/class/power_supply/BAT0" ]; then
-        battery_0_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+        energy_0=$(cat /sys/class/power_supply/BAT0/energy_now)
+        full_0=$(cat /sys/class/power_supply/BAT0/energy_full)
         charging_status_0=$(cat /sys/class/power_supply/BAT0/status)
+        total_energy=$((total_energy + energy_0))
+        total_full=$((total_full + full_0))
         battery_count=$((battery_count + 1))
     fi
 
+    # Battery 1
     if [ -d "/sys/class/power_supply/BAT1" ]; then
-        battery_1_capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+        energy_1=$(cat /sys/class/power_supply/BAT1/energy_now)
+        full_1=$(cat /sys/class/power_supply/BAT1/energy_full)
         charging_status_1=$(cat /sys/class/power_supply/BAT1/status)
+        total_energy=$((total_energy + energy_1))
+        total_full=$((total_full + full_1))
         battery_count=$((battery_count + 1))
     fi
 
-    # Calculate the mean capacity (assumes both batteries exist, otherwise defaults to individual battery capacities)
-    bat_lvl=0
-    if [ $battery_count -eq 1 ]; then
-        bat_lvl=$battery_0_capacity
-    elif [ $battery_count -eq 2 ]; then
-        bat_lvl=$(( (battery_0_capacity + battery_1_capacity) / 2 ))
+    # Calculate weighted mean battery level
+    if [ $total_full -gt 0 ]; then
+        bat_lvl=$(( total_energy * 100 / total_full ))
+    else
+        bat_lvl=0
     fi
 
+    # Update last_notify if battery increased
     if [ $bat_lvl -gt $last_notify ]; then
-            last_notify=$bat_lvl
+        last_notify=$bat_lvl
     fi
 
+    # Notify if not charging
     if [[ "$charging_status_0" != "Charging" ]] && [[ "$charging_status_1" != "Charging" ]]; then
-        for notify_level in ${notify_levels[@]}; do
+        for notify_level in "${notify_levels[@]}"; do
             if [ $bat_lvl -le $notify_level ]; then
                 if [ $notify_level -lt $last_notify ]; then
                     notify-send -u critical "Low Battery" "$bat_lvl% battery remaining."
@@ -45,5 +54,6 @@ while true; do
             fi
         done
     fi
-sleep 60
+
+    sleep 60
 done

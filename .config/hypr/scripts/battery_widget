@@ -1,34 +1,41 @@
 #!/bin/bash
 
-# Get battery capacities
-battery_0_capacity=""
-battery_1_capacity=""
+battery_count=0
+e_now_total=0
+e_full_total=0
+
 charging_status_0=""
 charging_status_1=""
 
-battery_count=0
+# BAT0
 if [ -d "/sys/class/power_supply/BAT0" ]; then
-    battery_0_capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+    e_now_0=$(cat /sys/class/power_supply/BAT0/energy_now)
+    e_full_0=$(cat /sys/class/power_supply/BAT0/energy_full)
     charging_status_0=$(cat /sys/class/power_supply/BAT0/status)
+
+    e_now_total=$(( e_now_total + e_now_0 ))
+    e_full_total=$(( e_full_total + e_full_0 ))
     battery_count=$((battery_count + 1))
 fi
 
+# BAT1
 if [ -d "/sys/class/power_supply/BAT1" ]; then
-    battery_1_capacity=$(cat /sys/class/power_supply/BAT1/capacity)
+    e_now_1=$(cat /sys/class/power_supply/BAT1/energy_now)
+    e_full_1=$(cat /sys/class/power_supply/BAT1/energy_full)
     charging_status_1=$(cat /sys/class/power_supply/BAT1/status)
+
+    e_now_total=$(( e_now_total + e_now_1 ))
+    e_full_total=$(( e_full_total + e_full_1 ))
     battery_count=$((battery_count + 1))
 fi
 
-# Calculate the mean capacity (assumes both batteries exist, otherwise defaults to individual battery capacities)
+# Compute weighted mean capacity
 mean_capacity=0
-if [ $battery_count -eq 1 ]; then
-    mean_capacity=$battery_0_capacity
-elif [ $battery_count -eq 2 ]; then
-    mean_capacity=$(( (battery_0_capacity + battery_1_capacity) / 2 ))
+if [ $battery_count -gt 0 ]; then
+    mean_capacity=$(( e_now_total * 100 / e_full_total ))
 fi
 
-battery_icon=""
-
+# Choose icon
 if [ $mean_capacity -ge 80 ]; then
     battery_icon=""
 elif [ $mean_capacity -ge 60 ]; then
@@ -41,11 +48,13 @@ else
     battery_icon=""
 fi
 
-# GTK Pango Markup to color the icon
+# Output with GTK Pango
 if [[ "$charging_status_0" == "Charging" ]] || [[ "$charging_status_1" == "Charging" ]]; then
-    echo -n "$battery_icon  $mean_capacity%"
+    echo -n "<span foreground='#C3E88D'>$battery_icon</span>  $mean_capacity%"
 else
-    if [ $mean_capacity -ge 0 ]; then
-        echo -n "$battery_icon $mean_capacity%"
+    if [ $mean_capacity -eq 0 ]; then
+        echo -n ""
+    else
+        echo -n "<span foreground='#C3E88D'>$battery_icon</span> $mean_capacity%"
     fi
 fi

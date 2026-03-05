@@ -27,12 +27,7 @@ auto-format = true
 indent = { tab-width = 4, unit = "    " }
  
 
-# Python
-[language-server.pylsp.config.pylsp]
-plugins.ruff.enabled = true
-plugins.black.enabled = true
-
 [[language]]
 name = "python"
-language-servers = ["pylsp"]
 auto-format = true
+formatter = { command = "ruff", args = ["format", "-"] }  

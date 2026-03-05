@@ -7,12 +7,10 @@ LINE2="monitor=eDP-1,disable"
 if grep -Fxq "$LINE1" "$CONF"; then
     # If LINE1 is found, replace it with LINE2
     sed -i "s|$LINE1|$LINE2|" "$CONF"
-    echo "Toggled: switched to '$LINE2'"
+    # echo "Toggled: switched to '$LINE2'"
 elif grep -Fxq "$LINE2" "$CONF"; then
     # If LINE2 is found, replace it with LINE1
     sed -i "s|$LINE2|$LINE1|" "$CONF"
-    echo "Toggled: switched to '$LINE1'"
-else
-    echo "No matching line found in $CONF"
+    # echo "Toggled: switched to '$LINE1'"
 fi
 
